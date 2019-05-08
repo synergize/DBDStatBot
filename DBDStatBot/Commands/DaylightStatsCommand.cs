@@ -20,7 +20,6 @@ namespace DBDStatBot.Commands
             if (stats != null)
             {
                 var BuildOutput = EmbedOutput.BuildDBDStats(stats);
-                BuildOutput.WithAuthor("Stats", Context.User.GetAvatarUrl());
                 await Context.Channel.SendMessageAsync("", false, BuildOutput.Build());
             }
             else
