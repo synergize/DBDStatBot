@@ -10,7 +10,9 @@ namespace DBDStatBot.APICall
     class PullPlayerStats
     {
         private static string _downloadNews = null;
-        public static void PlayerStats()
+        private static readonly string _steamKey = System.Environment.GetEnvironmentVariable("STEAM_KEY");
+        private string returnData = null;
+        public static void PlayerStats(string _appID, string _steamID)
         {
             using (var web = new WebClient())
             {
