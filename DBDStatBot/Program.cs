@@ -1,12 +1,83 @@
-﻿using System;
+﻿using Discord;
+using Discord.Commands;
+using Discord.WebSocket;
+using System;
+using System.Reflection;
+using System.Threading.Tasks;
 
 namespace DBDStatBot
 {
     class Program
     {
-        static void Main(string[] args)
+        private DiscordSocketClient Client;
+        private CommandService Commands;
+        static void Main(string[] args) => new Program().MainAsync().GetAwaiter().GetResult();
+
+
+        private async Task MainAsync()
         {
-            Console.WriteLine("Hello World!");
+
+            Client = new DiscordSocketClient(new DiscordSocketConfig
+            {
+                LogLevel = LogSeverity.Debug
+            });
+
+            Commands = new CommandService(new CommandServiceConfig
+            {
+                CaseSensitiveCommands = true,
+                DefaultRunMode = RunMode.Async,
+                LogLevel = LogSeverity.Debug
+
+            });
+
+            Client.MessageReceived += Client_MessageRecieved;
+            await Commands.AddModulesAsync(Assembly.GetEntryAssembly(), null);
+            Client.Ready += Client_Ready;
+            Client.Log += Log;
+
+            string Token = "NTc1NTkzODgwNDE0NTg0ODQx.XNKNmw.uUAQ9vUtAiSYCjAA41F-NkBxBLs";
+            await Client.LoginAsync(TokenType.Bot, Token);
+            await Client.StartAsync();
+            await Task.Delay(-1);
+        }
+
+        private Task Log(LogMessage msg)
+        {
+            Console.WriteLine(msg.Message);
+            return Task.CompletedTask;
+        }
+
+        private async Task Client_MessageRecieved(SocketMessage MessageParam)
+        {
+            var Message = MessageParam as SocketUserMessage;
+            var Context = new SocketCommandContext(Client, Message);
+
+            if (Context.Message == null || Context.Message.Content == "") return;
+            if (Context.User.IsBot) return;
+
+            if (Context.User.IsBot == false && Message.Content.Contains("addcode"))
+            {
+                await Context.Message.DeleteAsync();
+            }
+
+
+            int ArgPos = 0;
+            if (!(Message.HasCharPrefix('!', ref ArgPos) || Message.HasMentionPrefix(Client.CurrentUser, ref ArgPos))) return;
+
+            var Result = await Commands.ExecuteAsync(Context, ArgPos, null);
+            if (!Result.IsSuccess)
+                Console.WriteLine($"{DateTime.Now} at Commands] Something went wrong with executing command. Text: {Context.Message.Content} | Error: {Result.ErrorReason}");
+        }
+        private async Task Client_Ready()
+        {
+            await Client.SetGameAsync("Rust", "https://discordapp.com/developers", ActivityType.Listening);
+        }
+
+        //If someone adds a reaction, run x code. 
+        private async Task OnReactionAdded(Cacheable<IUserMessage, ulong> cache, ISocketMessageChannel Channel, SocketReaction Reaction)
+        {
+            //If a bot sends the reaction, disregard. 
+            if (((SocketUser)Reaction.User).IsBot) return;
         }
     }
 }
