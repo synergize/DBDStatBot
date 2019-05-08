@@ -4,6 +4,7 @@ using Discord.WebSocket;
 using System;
 using System.Reflection;
 using System.Threading.Tasks;
+using DBDStatBot.Models;
 
 namespace DBDStatBot
 {
@@ -35,7 +36,7 @@ namespace DBDStatBot
             Client.Ready += Client_Ready;
             Client.Log += Log;
 
-            string Token = "NTc1NTkzODgwNDE0NTg0ODQx.XNKNmw.uUAQ9vUtAiSYCjAA41F-NkBxBLs";
+            string Token = StaticDetails.DBDBotKey;
             await Client.LoginAsync(TokenType.Bot, Token);
             await Client.StartAsync();
             await Task.Delay(-1);
@@ -54,12 +55,6 @@ namespace DBDStatBot
 
             if (Context.Message == null || Context.Message.Content == "") return;
             if (Context.User.IsBot) return;
-
-            if (Context.User.IsBot == false && Message.Content.Contains("addcode"))
-            {
-                await Context.Message.DeleteAsync();
-            }
-
 
             int ArgPos = 0;
             if (!(Message.HasCharPrefix('!', ref ArgPos) || Message.HasMentionPrefix(Client.CurrentUser, ref ArgPos))) return;

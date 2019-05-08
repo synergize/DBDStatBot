@@ -4,31 +4,31 @@ using System.Text;
 
 namespace DBDStatBot.Models
 {
-    class DaylightStatModel
+    public class DaylightStatModel
     {
         public class Stat
         {
-            public string name { get; set; }
-            public double value { get; set; }
+            public string Name { get; set; }
+            public double Value { get; set; }
         }
 
         public class Achievement
         {
-            public string name { get; set; }
-            public int achieved { get; set; }
+            public string Name { get; set; }
+            public int Achieved { get; set; }
         }
 
         public class Playerstats
         {
-            public string steamID { get; set; }
-            public string gameName { get; set; }
-            public List<Stat> stats { get; set; }
-            public List<Achievement> achievements { get; set; }
+            public string SteamId { get; set; }
+            public string GameName { get; set; }
+            public List<Stat> Stats { get; set; }
+            public List<Achievement> Achievements { get; set; }
         }
 
         public class RootObject
         {
-            public Playerstats playerstats { get; set; }
+            public Playerstats PlayerStats { get; set; }
         }
     }
 }
