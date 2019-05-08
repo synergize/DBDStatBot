@@ -14,7 +14,6 @@ namespace DBDStatBot
         private CommandService Commands;
         static void Main(string[] args) => new Program().MainAsync().GetAwaiter().GetResult();
 
-
         private async Task MainAsync()
         {
 
@@ -65,7 +64,7 @@ namespace DBDStatBot
         }
         private async Task Client_Ready()
         {
-            await Client.SetGameAsync("Rust", "https://discordapp.com/developers", ActivityType.Listening);
+            await Client.SetGameAsync("Dead By Daylight", "https://discordapp.com/developers", ActivityType.Listening);
         }
 
         //If someone adds a reaction, run x code. 
