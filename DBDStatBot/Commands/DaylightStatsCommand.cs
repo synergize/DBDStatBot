@@ -12,7 +12,7 @@ namespace DBDStatBot.Commands
 {
     public class DaylightStatsCommand : ModuleBase<SocketCommandContext>
     {
-        [Command("stats")]
+        [Command("dbdstats")]
         public async Task DBDStats(string steamId)
         {   
             var stats = PullPlayerStats.PlayerStats(steamId);
@@ -24,7 +24,7 @@ namespace DBDStatBot.Commands
             }
             else
             {
-                await Context.Channel.SendMessageAsync("Profile not public.");
+                await Context.Channel.SendMessageAsync("", false, EmbedOutput.DBDAPIFailure().Build());
             }
         }
     }

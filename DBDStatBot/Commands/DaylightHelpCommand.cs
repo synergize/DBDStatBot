@@ -10,7 +10,7 @@ namespace DBDStatBot.Commands
 {
     public class DaylightHelpCommand : ModuleBase<SocketCommandContext>
     {
-        [Command("help")]
+        [Command("dbdhelp")]
         public async Task DBDHelp()
         {
             await Context.Channel.SendMessageAsync("", false, EmbedOutput.DBDHelpInfo().Build());

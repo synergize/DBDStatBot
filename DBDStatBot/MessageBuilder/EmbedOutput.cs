@@ -21,7 +21,7 @@ namespace DBDStatBot.MessageBuilder
                 if (DBDStatsOutput.Fields.Count >= 25)
                 {
                     break;
-                }
+                }               
                 DBDStatsOutput.AddField(x.Name.ToString(), x.Value, false);
             }
             return DBDStatsOutput;
@@ -37,6 +37,17 @@ namespace DBDStatBot.MessageBuilder
             DBDHelp.AddField("Stats: ", "!stats <SteamID>", true);
             DBDHelp.AddField("Steam ID Lookup: ", "https://steamid.io/", true);
             return DBDHelp;
+        }
+        public static EmbedBuilder DBDAPIFailure()
+        {
+            EmbedBuilder DBDFail = new EmbedBuilder();
+            DBDFail.Title = "Stat Lookup Failed.";
+            DBDFail.WithColor(16580608);
+            DBDFail.WithFooter("Contact Coaction#5994 for any issues. This is a work in progress.");
+            DBDFail.AddField("Profile Settings: ", "Make sure \"My Profile\" and \"Game Details\" are set to Public.", true);
+            DBDFail.AddField("Time To Update: ", "Steam can take time to update your privacy settings. Give 10-15 minutes before trying again.", true);
+
+            return DBDFail;
         }
     }
 }

@@ -23,18 +23,10 @@ namespace DBDStatBot.APICall
                 }
                 catch (WebException msg)
                 {
-                    Console.WriteLine("Profile's Game Stats aren't public. Please pick another Steam ID or change the privacy settings in Steam.");
+                    Console.WriteLine(msg);
                     return null;
                 }
-                var result = JsonConvert.DeserializeObject<DaylightStatModel>(_downloadNews);
                 return JsonConvert.DeserializeObject<DaylightStatModel>(_downloadNews);
-                //Console.WriteLine(result.PlayerStats.Stats[0].Name);
-
-                //for (int i = 0; i < result.PlayerStats.Stats.Count; ++i)
-                //{
-                //    var output =
-                //        $"{result.PlayerStats.Stats[i].Name}: {result.PlayerStats.Stats[i].Value}";
-                //}
             }
         }
     }
