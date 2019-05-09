@@ -8,7 +8,7 @@ namespace DBDStatBot.MessageBuilder
 {
     public class EmbedOutput : ModuleBase<SocketCommandContext>
     {
-        public static EmbedBuilder BuildDBDStats(DaylightStatModel.RootObject obj)  
+        public static EmbedBuilder BuildDBDStats(DaylightStatModel obj)  
         {
             EmbedBuilder DBDStatsOutput = new EmbedBuilder();
             DBDStatsOutput.Title = "Your Stats!";
@@ -36,7 +36,6 @@ namespace DBDStatBot.MessageBuilder
             DBDHelp.WithDescription("This bot allows for users to look up their stats in Dead by Daylight. Steam ID must be steamID64. ");
             DBDHelp.AddField("Stats: ", "!stats <SteamID>", true);
             DBDHelp.AddField("Steam ID Lookup: ", "https://steamid.io/", true);
-
             return DBDHelp;
         }
     }

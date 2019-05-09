@@ -6,6 +6,7 @@ namespace DBDStatBot.Models
 {
     public class DaylightStatModel
     {
+        
         public class Stat
         {
             public string Name { get; set; }
@@ -25,10 +26,7 @@ namespace DBDStatBot.Models
             public List<Stat> Stats { get; set; }
             public List<Achievement> Achievements { get; set; }
         }
-
-        public class RootObject
-        {
-            public Playerstats PlayerStats { get; set; }
-        }
+        //DaylightStatModel
+        public Playerstats PlayerStats { get; set; }
     }
 }

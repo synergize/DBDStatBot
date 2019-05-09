@@ -11,7 +11,7 @@ namespace DBDStatBot.APICall
     {
         private static string _downloadNews = null;
         private string returnData = null;
-        public static DaylightStatModel.RootObject PlayerStats(string _steamID)
+        public static DaylightStatModel PlayerStats(string _steamID)
         {
             using (var web = new WebClient())
             {
@@ -26,8 +26,8 @@ namespace DBDStatBot.APICall
                     Console.WriteLine("Profile's Game Stats aren't public. Please pick another Steam ID or change the privacy settings in Steam.");
                     return null;
                 }
-                var result = JsonConvert.DeserializeObject<DaylightStatModel.RootObject>(_downloadNews);
-                return JsonConvert.DeserializeObject<DaylightStatModel.RootObject>(_downloadNews);
+                var result = JsonConvert.DeserializeObject<DaylightStatModel>(_downloadNews);
+                return JsonConvert.DeserializeObject<DaylightStatModel>(_downloadNews);
                 //Console.WriteLine(result.PlayerStats.Stats[0].Name);
 
                 //for (int i = 0; i < result.PlayerStats.Stats.Count; ++i)
