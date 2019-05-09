@@ -50,6 +50,14 @@ namespace DBDStatBot.Models
         DBD_Chapter10_Camper_Stat1,
         DBD_FixSecondFloorGenerator_MapKny_Cottage,
         DBD_Chapter11_Camper_Stat1_float,
-        DBD_Chapter12_Camper_Stat1
+        DBD_Chapter12_Camper_Stat1,
+        DBD_DLC4_Slasher_Stat1,
+        DBD_DLC4_Slasher_Stat2,
+        DBD_SlasherTierIncrement,
+        DBD_BloodwebPrestige3MaxLevel,
+        DBD_BloodwebMaxPrestigeLevel,
+        DBD_CamperMaxScoreByCategory,
+        DBD_SlasherMaxScoreByCategory,
+        DBD_KilledCampers_iam,
     }
 }
