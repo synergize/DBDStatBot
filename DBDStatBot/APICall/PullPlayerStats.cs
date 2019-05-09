@@ -11,8 +11,10 @@ namespace DBDStatBot.APICall
     {
         private static string _downloadNews = null;
         private string returnData = null;
-        public static DaylightStatModel PlayerStats(string _steamID)
+        public static List<DaylightStatModel.Stat> PlayerStats(string _steamID)
         {
+            List<DaylightStatModel.Stat> StatsList = new List<DaylightStatModel.Stat>();
+
             using (var web = new WebClient())
             {
                 try
@@ -26,7 +28,28 @@ namespace DBDStatBot.APICall
                     Console.WriteLine(msg);
                     return null;
                 }
-                return JsonConvert.DeserializeObject<DaylightStatModel>(_downloadNews);
+
+                //Store downloaded stats into memory. 
+                var DownloadedStats = JsonConvert.DeserializeObject<DaylightStatModel>(_downloadNews);
+
+
+                //Loop through the stats and add them into a List so that we can modify if necessary. 
+                foreach (var x in DownloadedStats.PlayerStats.Stats)
+                {
+                    StatsList.Add(x);
+                    ///<summary>
+                    /// Loop through <see cref="StatFilterEnum"/> in order to remove unncessary stats from the list. 
+                    /// </summary>
+                    foreach (StatFilterEnum StatFilter in (StatFilterEnum[])Enum.GetValues(typeof(StatFilterEnum)))
+                    {
+                        if (x.Name == StatFilter.ToString())
+                        {
+                            StatsList.Remove(x);
+                        }
+                    }
+                }
+                //return JsonConvert.DeserializeObject<DaylightStatModel>(_downloadNews);
+                return StatsList;
             }
         }
     }

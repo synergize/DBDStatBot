@@ -3,12 +3,13 @@ using Discord.Commands;
 using System;
 using Discord;
 using System.Threading.Tasks;
+using System.Collections.Generic;
 
 namespace DBDStatBot.MessageBuilder
 {
     public class EmbedOutput : ModuleBase<SocketCommandContext>
     {
-        public static EmbedBuilder BuildDBDStats(DaylightStatModel obj)  
+        public static EmbedBuilder BuildDBDStats(List<DaylightStatModel.Stat> obj)  
         {
             EmbedBuilder DBDStatsOutput = new EmbedBuilder();
             DBDStatsOutput.Title = "Your Stats!";
@@ -16,7 +17,7 @@ namespace DBDStatBot.MessageBuilder
             DBDStatsOutput.WithDescription(
                 $"Place holder description. \n [This is a hyperlink](https://discordapp.com/developers)");
             DBDStatsOutput.WithColor(4124426);
-            foreach (var x in obj.PlayerStats.Stats)
+            foreach (var x in obj)
             {
                 if (DBDStatsOutput.Fields.Count >= 25)
                 {
