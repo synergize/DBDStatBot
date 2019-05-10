@@ -59,5 +59,14 @@ namespace DBDStatBot.Models
         DBD_CamperMaxScoreByCategory,
         DBD_SlasherMaxScoreByCategory,
         DBD_KilledCampers_iam,
+        DBD_EscapeNoBlood_MapAsy_Asylum,
+        DBD_FixSecondFloorGenerator_MapBrl_MaHouse,
+        DBD_DLC6_Slasher_Stat1,
+        DBD_DLC7_Slasher_Stat1,
+        DBD_DLC7_Slasher_Stat2,
+        DBD_FinishWithPerks_Idx11,
+        DBD_FixSecondFloorGenerator_MapFin_Hideout,
+        DBD_FixSecondFloorGenerator_MapAsy_Chapel,
+
     }
 }
