@@ -13,18 +13,18 @@ namespace DBDStatBot.Models
             public double Value { get; set; }
         }
 
-        public class Achievement
-        {
-            public string Name { get; set; }
-            public int Achieved { get; set; }
-        }
+        //public class Achievement
+        //{
+        //    public string Name { get; set; }
+        //    public int Achieved { get; set; }
+        //}
 
         public class Playerstats
         {
             public string SteamId { get; set; }
             public string GameName { get; set; }
             public List<Stat> Stats { get; set; }
-            public List<Achievement> Achievements { get; set; }
+           // public List<Achievement> Achievements { get; set; }
         }
         //DaylightStatModel
         public Playerstats PlayerStats { get; set; }

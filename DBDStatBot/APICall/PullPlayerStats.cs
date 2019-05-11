@@ -11,16 +11,16 @@ namespace DBDStatBot.APICall
     {
         private static string _downloadNews = null;
         private string returnData = null;
-        public static List<DaylightStatModel.Stat> PlayerStats(string _steamID)
+        public static DaylightStatModel PlayerStats(string _steamID)
         {
-            List<DaylightStatModel.Stat> StatsList = new List<DaylightStatModel.Stat>();
+            //List<DaylightStatModel.Stat> StatsList = new List<DaylightStatModel.Stat>();
 
             using (var web = new WebClient())
             {
                 try
                 {
                     var _url =
-                    string.Format($"http://api.steampowered.com/ISteamUserStats/GetUserStatsForGame/v0002/?appid={StaticDetails.AppID}&key={StaticDetails.SteamAPIKey}&steamid={_steamID}");
+                    string.Format($"http://api.steampowered.com/ISteamUserStats/GetUserStatsForGame/v0002/?appid={StaticDetails.AppID}&key={StaticDetails.SteamAPIKey}&steamid={_steamID}&format=json");
                     _downloadNews = web.DownloadString(_url);
                 }
                 catch (WebException msg)
@@ -31,25 +31,37 @@ namespace DBDStatBot.APICall
 
                 //Store downloaded stats into memory. 
                 var DownloadedStats = JsonConvert.DeserializeObject<DaylightStatModel>(_downloadNews);
-
-
-                //Loop through the stats and add them into a List so that we can modify if necessary. 
-                foreach (var x in DownloadedStats.PlayerStats.Stats)
+                try
                 {
-                    StatsList.Add(x);
-                    ///<summary>
-                    /// Loop through <see cref="StatFilterEnum"/> in order to remove unncessary stats from the list. 
-                    /// </summary>
-                    foreach (StatFilterEnum StatFilter in (StatFilterEnum[])Enum.GetValues(typeof(StatFilterEnum)))
-                    {
-                        if (x.Name == StatFilter.ToString())
+                    
+ 
+
+                        //DownloadedStats.PlayerStats.Stats.Add(x);
+                        ///< summary >
+                        /// Loop through < see cref = "StatFilterEnum" /> in order to remove unncessary stats from the list. 
+                        /// </ summary >
+                        foreach (StatFilterEnum StatFilter in (StatFilterEnum[]) Enum.GetValues(typeof(StatFilterEnum)))
                         {
-                            StatsList.Remove(x);
+                            for (int i = 0; i < DownloadedStats.PlayerStats.Stats.Count; i++)
+                            {
+                                if (DownloadedStats.PlayerStats.Stats[i].Name == StatFilter.ToString())
+                                {
+                                    DownloadedStats.PlayerStats.Stats.Remove(DownloadedStats.PlayerStats.Stats[i]);
+                                    break;
+                                }
+                            }
                         }
-                    }
+
+
+
                 }
-                //return JsonConvert.DeserializeObject<DaylightStatModel>(_downloadNews);
-                return StatsList;
+                catch (Exception e)
+                {
+                    Console.WriteLine(e);
+                    throw;
+                }
+                //Loop through the stats and add them into a List so that we can modify if necessary. 
+                return DownloadedStats;
             }
         }
     }

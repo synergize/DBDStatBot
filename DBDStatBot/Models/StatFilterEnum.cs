@@ -4,7 +4,7 @@ using System.Text;
 
 namespace DBDStatBot.Models
 {
-    enum StatFilterEnum
+    public enum StatFilterEnum
     {
         DBD_KillerSkulls,
         DBD_SacrificedCampers,
