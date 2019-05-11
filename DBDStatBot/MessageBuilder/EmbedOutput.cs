@@ -4,6 +4,7 @@ using System;
 using Discord;
 using System.Threading.Tasks;
 using System.Collections.Generic;
+using DBDStatBot.APICall.Filter;
 
 namespace DBDStatBot.MessageBuilder
 {
@@ -11,6 +12,8 @@ namespace DBDStatBot.MessageBuilder
     {
         public static EmbedBuilder BuildDBDStats(DaylightStatModel obj)  
         {
+            RemoveFilteredItems.RemoveUselessStats(obj);
+
             EmbedBuilder DBDStatsOutput = new EmbedBuilder();
             DBDStatsOutput.Title = "Your Stats!!!";
             DBDStatsOutput.WithFooter("Contact Coaction#5994 for any issues. This is a work in progress.");
