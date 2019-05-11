@@ -26,6 +26,10 @@ namespace DBDStatBot.FileHelper
                     Testing.Add(StatsFromFile[i]);
                 }
             }
+            else
+            {
+                Testing.Add(obj.PlayerStats);
+            }
             
             using (StreamWriter file = File.CreateText(StaticDetails.DBDStatsFile))
             {
