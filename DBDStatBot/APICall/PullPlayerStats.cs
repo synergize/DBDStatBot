@@ -10,10 +10,11 @@ namespace DBDStatBot.APICall
     class PullPlayerStats
     {
         private static string _downloadNews = null;
-        private string returnData = null;
+        ///< summary >
+        /// API Call to Steam's API and storing the call within the < see cref = "DaylightStatModel" /> data model.
+        /// </ summary >
         public static DaylightStatModel PlayerStats(string _steamID)
         {
-            //List<DaylightStatModel.Stat> StatsList = new List<DaylightStatModel.Stat>();
 
             using (var web = new WebClient())
             {

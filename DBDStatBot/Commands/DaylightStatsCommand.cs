@@ -13,6 +13,9 @@ namespace DBDStatBot.Commands
 {
     public class DaylightStatsCommand : ModuleBase<SocketCommandContext>
     {
+        ///< summary >
+        /// Command class used for users to acquire their Dead By Daylight stats. 
+        /// </ summary >
         [Command("dbdstats")]
         public async Task DBDStats(string steamId)
         {   

@@ -10,6 +10,9 @@ namespace DBDStatBot.MessageBuilder
 {
     public class EmbedOutput : ModuleBase<SocketCommandContext>
     {
+        ///< summary >
+        /// Class built to house any output the bot may need to distribute. We do this by using the EmbedBuilder from Discord. 
+        /// </ summary >
         public static EmbedBuilder BuildDBDStats(DaylightStatModel obj)  
         {
             RemoveFilteredItems.RemoveUselessStats(obj);

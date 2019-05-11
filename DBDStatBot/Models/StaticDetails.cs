@@ -8,7 +8,9 @@ namespace DBDStatBot.Models
     public static class StaticDetails
     {
 
-        //test 4
+        ///< summary >
+        /// Static class that houses critical token and pathing details that the whole program may need to use.  
+        /// </ summary >
         private static string DBDAppID = "381210";
         private static string SteamKey = "38385657BDA9CD55FF7A3647BD16FAE5";
         private static string BotKey = "NTc1NTkzODgwNDE0NTg0ODQx.XNKNmw.uUAQ9vUtAiSYCjAA41F-NkBxBLs";
