@@ -9,15 +9,15 @@ namespace DBDStatBot.MessageBuilder
 {
     public class EmbedOutput : ModuleBase<SocketCommandContext>
     {
-        public static EmbedBuilder BuildDBDStats(List<DaylightStatModel.Stat> obj)  
+        public static EmbedBuilder BuildDBDStats(DaylightStatModel obj)  
         {
             EmbedBuilder DBDStatsOutput = new EmbedBuilder();
-            DBDStatsOutput.Title = "Your Stats!";
+            DBDStatsOutput.Title = "Your Stats!!!";
             DBDStatsOutput.WithFooter("Contact Coaction#5994 for any issues. This is a work in progress.");
             DBDStatsOutput.WithDescription(
                 $"Place holder description. \n [This is a hyperlink](https://discordapp.com/developers)");
             DBDStatsOutput.WithColor(4124426);
-            foreach (var x in obj)
+            foreach (var x in obj.PlayerStats.Stats)
             {
                 if (DBDStatsOutput.Fields.Count >= 25)
                 {

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 using DBDStatBot.APICall;
+using DBDStatBot.FileHelper;
 using DBDStatBot.MessageBuilder;
 using DBDStatBot.Models;
 using Discord;
@@ -19,6 +20,8 @@ namespace DBDStatBot.Commands
 
             if (stats != null)
             {
+                GetCheckDirectory.CheckDirectory(StaticDetails.DataDirectoryPath);
+                SaveStatsToJson.WriteToFile(stats);
                 var BuildOutput = EmbedOutput.BuildDBDStats(stats);
                 await Context.Channel.SendMessageAsync("", false, BuildOutput.Build());
             }
