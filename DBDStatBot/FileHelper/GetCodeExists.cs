@@ -8,6 +8,10 @@ namespace DBDStatBot.FileHelper
 {
     public static class GetCodeExists
     {
+        /// <summary>
+        /// Checks if our JSON file exists. 
+        /// </summary>
+        /// <returns></returns>
         public static bool CodeExists()
         {
             return File.Exists(StaticDetails.DBDStatsFile);

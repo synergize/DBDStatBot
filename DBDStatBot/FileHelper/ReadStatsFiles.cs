@@ -9,15 +9,20 @@ namespace DBDStatBot.FileHelper
 {
     public static class ReadStatsFiles
     {
+        /// <summary>
+        /// Class file that reads the json file from disk. If the file isn't empty we return it's contents.
+        /// Otherwise we return null.
+        /// </summary>
+        /// <returns></returns>
         public static List<DaylightStatModel.Playerstats> ReadFile()
         {
-            List<DaylightStatModel.Playerstats> obj = new List<DaylightStatModel.Playerstats>();
+            List<DaylightStatModel.Playerstats> ListOfStatsFromFile = new List<DaylightStatModel.Playerstats>();
 
             var file = File.ReadAllText(StaticDetails.DBDStatsFile);
             if (file != "")
             {
-                JsonConvert.PopulateObject(file, obj);
-                return obj;                
+                JsonConvert.PopulateObject(file, ListOfStatsFromFile);
+                return ListOfStatsFromFile;                
             }
             else
             {

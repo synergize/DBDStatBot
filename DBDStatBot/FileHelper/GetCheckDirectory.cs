@@ -8,8 +8,14 @@ namespace DBDStatBot.FileHelper
 {
     public static class GetCheckDirectory
     {
+        /// <summary>
+        /// Checks if our Data Directory exists. If it doesn't, we create it.
+        /// We also check to see if the JSON file exists. If it doesn't, we create it.
+        /// </summary>
+        /// <param name="file"></param>
     public static void CheckDirectory(string file)
         {
+            
             if (!Directory.Exists(file))
             {
                 //If the directory for our basecode json file doesn't exist we create it along with the json file. 
