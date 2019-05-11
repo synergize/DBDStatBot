@@ -1,32 +1,36 @@
 ﻿using DBDStatBot.Models;
 using Newtonsoft.Json;
-using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Text;
 
 namespace DBDStatBot.FileHelper
 {
     public static class SaveStatsToJson
     {
-        public static void WriteToFile(DaylightStatModel obj)
+        public static void WriteToFile(DaylightStatModel obj, string steamID)
         {
-            List<DaylightStatModel> Testing = new List<DaylightStatModel>();
+            List<DaylightStatModel.Playerstats> Testing = new List<DaylightStatModel.Playerstats>();            
             var StatsFromFile = ReadStatsFiles.ReadFile();
             if (StatsFromFile != null)
             {
-                foreach (var x in StatsFromFile.PlayerStats.Stats)
+                for (int i = 0; i < StatsFromFile.Count; i++)
                 {
-                    if (!StatsFromFile.PlayerStats.Stats.Contains(x))
+                    if (StatsFromFile[i].SteamId == steamID)
                     {
-                        obj.PlayerStats.Stats.Add(x);
-                    }                    
+                        StatsFromFile[i].Stats.Add(obj.PlayerStats.Stats[i]);
+                    }
+                    else
+                    {
+                        Testing.Add(obj.PlayerStats);
+                    }
+                    Testing.Add(StatsFromFile[i]);
                 }
             }
+            
             using (StreamWriter file = File.CreateText(StaticDetails.DBDStatsFile))
             {
                 JsonSerializer serializer = new JsonSerializer();
-                serializer.Serialize(file, obj);
+                serializer.Serialize(file, Testing);
             }
 
         }

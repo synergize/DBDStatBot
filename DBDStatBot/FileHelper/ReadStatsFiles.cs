@@ -9,14 +9,14 @@ namespace DBDStatBot.FileHelper
 {
     public static class ReadStatsFiles
     {
-        public static DaylightStatModel ReadFile()
+        public static List<DaylightStatModel.Playerstats> ReadFile()
         {
-            DaylightStatModel obj = new DaylightStatModel();
+            List<DaylightStatModel.Playerstats> obj = new List<DaylightStatModel.Playerstats>();
 
             var file = File.ReadAllText(StaticDetails.DBDStatsFile);
             if (file != "")
             {
-                 JsonConvert.PopulateObject(file, obj);
+                JsonConvert.PopulateObject(file, obj);
                 return obj;                
             }
             else
