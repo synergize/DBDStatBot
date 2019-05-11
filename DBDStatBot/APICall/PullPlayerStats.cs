@@ -31,27 +31,29 @@ namespace DBDStatBot.APICall
 
                 //Store downloaded stats into memory. 
                 var DownloadedStats = JsonConvert.DeserializeObject<DaylightStatModel>(_downloadNews);
-
                 try
                 {
-                    for (int i = 0; i < DownloadedStats.PlayerStats.Stats.Count; i++)
-                    {
+                    
  
 
                         //DownloadedStats.PlayerStats.Stats.Add(x);
                         ///< summary >
                         /// Loop through < see cref = "StatFilterEnum" /> in order to remove unncessary stats from the list. 
                         /// </ summary >
-                        foreach (StatFilterEnum StatFilter in (StatFilterEnum[])Enum.GetValues(typeof(StatFilterEnum)))
+                        foreach (StatFilterEnum StatFilter in (StatFilterEnum[]) Enum.GetValues(typeof(StatFilterEnum)))
                         {
-                            if (DownloadedStats.PlayerStats.Stats[i].Name == StatFilter.ToString())
+                            for (int i = 0; i < DownloadedStats.PlayerStats.Stats.Count; i++)
                             {
-                                DownloadedStats.PlayerStats.Stats.Remove(DownloadedStats.PlayerStats.Stats[i]);
-                                break;
+                                if (DownloadedStats.PlayerStats.Stats[i].Name == StatFilter.ToString())
+                                {
+                                    DownloadedStats.PlayerStats.Stats.Remove(DownloadedStats.PlayerStats.Stats[i]);
+                                    break;
+                                }
                             }
                         }
 
-                    }
+
+
                 }
                 catch (Exception e)
                 {

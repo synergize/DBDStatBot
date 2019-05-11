@@ -11,7 +11,7 @@ namespace DBDStatBot.FileHelper
     {
         public static void WriteToFile(DaylightStatModel obj)
         {
-            using (StreamWriter file = File.CreateText(StaticDetails.DBDStatsFile))
+            using (StreamWriter file = File.AppendText(StaticDetails.DBDStatsFile))
             {
                 JsonSerializer serializer = new JsonSerializer();
                 serializer.Serialize(file, obj);
