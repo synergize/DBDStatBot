@@ -10,12 +10,14 @@ namespace DBDStatBot.APICall
     class PullPlayerStats
     {
         private static string _downloadNews = null;
+        //private static List<DaylightStatModel> ListOfPlayers = new List<DaylightStatModel>(); //Uncomment to maintain list between classes. Doesn't re-up when being accessed. 
+        private static List<DaylightStatModel> ListOfPlayers;
         ///< summary >
         /// API Call to Steam's API and storing the call within the < see cref = "DaylightStatModel" /> data model.
         /// </ summary >
-        public static DaylightStatModel PlayerStats(string _steamID)
+        /// 
+        public static List<DaylightStatModel> PlayerStats(string _steamID)
         {
-
             using (var web = new WebClient())
             {
                 try
@@ -32,8 +34,10 @@ namespace DBDStatBot.APICall
 
                 //Store downloaded stats into memory. 
                 var DownloadedStats = JsonConvert.DeserializeObject<DaylightStatModel>(_downloadNews);
+                ListOfPlayers = new List<DaylightStatModel>();
+                ListOfPlayers.Add(DownloadedStats);
 
-                return DownloadedStats;
+                return ListOfPlayers;
             }
         }
     }

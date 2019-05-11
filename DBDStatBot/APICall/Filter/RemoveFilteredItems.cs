@@ -7,18 +7,18 @@ namespace DBDStatBot.APICall.Filter
 {
    public static class RemoveFilteredItems
     {
-        public static DaylightStatModel RemoveUselessStats(DaylightStatModel obj)
+        public static List<DaylightStatModel> RemoveUselessStats(List<DaylightStatModel> obj)
         {
             ///< summary >
             /// Loop through < see cref = "StatFilterEnum" /> in order to remove unncessary stats stats from <see cref="DaylightStatModel"/> object.
             /// </ summary >
             foreach (StatFilterEnum StatFilter in (StatFilterEnum[])Enum.GetValues(typeof(StatFilterEnum)))
             {
-                for (int i = 0; i < obj.PlayerStats.Stats.Count; i++)
+                for (int i = 0; i < obj[0].PlayerStats.Stats.Count; i++)
                 {
-                    if (obj.PlayerStats.Stats[i].Name == StatFilter.ToString())
+                    if (obj[0].PlayerStats.Stats[i].Name == StatFilter.ToString())
                     {
-                        obj.PlayerStats.Stats.Remove(obj.PlayerStats.Stats[i]);
+                        obj[0].PlayerStats.Stats.Remove(obj[0].PlayerStats.Stats[i]);
                         break;
                     }
                 }

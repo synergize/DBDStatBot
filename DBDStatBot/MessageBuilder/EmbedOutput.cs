@@ -13,7 +13,7 @@ namespace DBDStatBot.MessageBuilder
         ///< summary >
         /// Class built to house any output the bot may need to distribute. We do this by using the EmbedBuilder from Discord. 
         /// </ summary >
-        public static EmbedBuilder BuildDBDStats(DaylightStatModel obj)  
+        public static EmbedBuilder BuildDBDStats(List<DaylightStatModel> obj)  
         {
             RemoveFilteredItems.RemoveUselessStats(obj);
 
@@ -23,7 +23,7 @@ namespace DBDStatBot.MessageBuilder
             DBDStatsOutput.WithDescription(
                 $"Place holder description. \n [This is a hyperlink](https://discordapp.com/developers)");
             DBDStatsOutput.WithColor(4124426);
-            foreach (var x in obj.PlayerStats.Stats)
+            foreach (var x in obj[0].PlayerStats.Stats)
             {
                 if (DBDStatsOutput.Fields.Count >= 25)
                 {

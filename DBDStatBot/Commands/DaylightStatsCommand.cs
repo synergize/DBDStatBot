@@ -24,7 +24,7 @@ namespace DBDStatBot.Commands
             if (stats != null)
             {
                 GetCheckDirectory.CheckDirectory(StaticDetails.DataDirectoryPath);
-                SaveStatsToJson.WriteToFile(stats);
+                SaveStatsToJson.WriteToFile(stats[0]);
                 var BuildOutput = EmbedOutput.BuildDBDStats(stats);
                 await Context.Channel.SendMessageAsync("", false, BuildOutput.Build());
             }
