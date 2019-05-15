@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using DBDStatBot.MessageBuilder;
 using Discord;
+using DBDStatBot.APICall.Dropbox;
 
 namespace DBDStatBot.Commands
 {
@@ -13,7 +14,9 @@ namespace DBDStatBot.Commands
         [Command("dbdhelp")]
         public async Task DBDHelp()
         {
-            await Context.Channel.SendMessageAsync("", false, EmbedOutput.DBDHelpInfo().Build());
+            //await Context.Channel.SendMessageAsync("", false, EmbedOutput.DBDHelpInfo().Build());
+            AccessDropbox Test = new AccessDropbox();
+            Test.CreateDBoxClient();
         }
     }
 }
