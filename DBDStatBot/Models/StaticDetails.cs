@@ -17,6 +17,8 @@ namespace DBDStatBot.Models
         private static string BotKey = "NTc1NTkzODgwNDE0NTg0ODQx.XNKNmw.uUAQ9vUtAiSYCjAA41F-NkBxBLs";
         private static string DataDirectory = Path.Combine(Path.GetFullPath(Directory.GetCurrentDirectory()), "Data");
         private static string DBDStats = @"DBDStats.json";
+        private static string DboxToken = "HzH-CiskL7gAAAAAAAACm3BOniHcP8YtthEvEgQ3jN9ZX54fm9qqDA37k4NzxLYz";
+        private static string DboxAppkey = "vq2h4kiom4plzsi";
 
         public static string AppID
         {
@@ -41,6 +43,18 @@ namespace DBDStatBot.Models
         public static string DBDStatsFile
         {
             get { return DBDStats; }
+        }
+        public static string DropboxToken
+        {
+            get { return DboxToken; }
+        }
+        public static string DropBoxAppKey
+        {
+            get { return DboxAppkey; }
+        }
+        public static string BuildFilePath(string path, string file)
+        {
+            return Path.Combine(path, file);
         }
     }
 }

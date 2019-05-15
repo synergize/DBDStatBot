@@ -25,10 +25,12 @@ namespace DBDStatBot.FileHelper
                 ListOfPlayers.Add(newEntryObj.PlayerStats);
             }
             
-            using (StreamWriter file = File.CreateText(StaticDetails.DBDStatsFile))
+            using (StreamWriter file = File.CreateText(StaticDetails.BuildFilePath(StaticDetails.DataDirectoryPath, StaticDetails.DBDStatsFile)))
             {
                 JsonSerializer serializer = new JsonSerializer();
+                serializer.Formatting = Formatting.Indented;
                 serializer.Serialize(file, ListOfPlayers);
+                
             }
 
         }

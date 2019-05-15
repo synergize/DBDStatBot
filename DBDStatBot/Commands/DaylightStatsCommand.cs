@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 using DBDStatBot.APICall;
+using DBDStatBot.APICall.Dropbox;
 using DBDStatBot.FileHelper;
 using DBDStatBot.MessageBuilder;
 using DBDStatBot.Models;
@@ -23,9 +24,12 @@ namespace DBDStatBot.Commands
 
             if (stats != null)
             {
+                //File Write
                 GetCheckDirectory.CheckDirectory(StaticDetails.DataDirectoryPath);
                 SaveStatsToJson.WriteToFile(stats[0]);
-                var BuildOutput = EmbedOutput.BuildDBDStats(stats);
+
+                AccessDropbox LinkToStatsDownload = new AccessDropbox();
+                var BuildOutput = EmbedOutput.BuildDBDStats(stats, LinkToStatsDownload.SCreateDBoxClient(stats).Result);
                 await Context.Channel.SendMessageAsync("", false, BuildOutput.Build());
             }
             else
