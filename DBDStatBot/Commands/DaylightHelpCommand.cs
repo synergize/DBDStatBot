@@ -16,7 +16,8 @@ namespace DBDStatBot.Commands
         {
             //await Context.Channel.SendMessageAsync("", false, EmbedOutput.DBDHelpInfo().Build());
             AccessDropbox Test = new AccessDropbox();
-            Test.CreateDBoxClient();
+            //var x = Test.SCreateDBoxClient();
+            //await Context.Channel.SendMessageAsync(x.Result.ToString(), false, null);
         }
     }
 }
