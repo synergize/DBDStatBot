@@ -36,6 +36,7 @@ namespace DBDStatBot.APICall
                 var DownloadedStats = JsonConvert.DeserializeObject<DaylightStatModel>(_downloadNews);
                 ListOfPlayers = new List<DaylightStatModel>();
                 ListOfPlayers.Add(DownloadedStats);
+                ListOfPlayers[0].PlayerStats.LastUpdated = DateTime.UtcNow;
 
                 return ListOfPlayers;
             }

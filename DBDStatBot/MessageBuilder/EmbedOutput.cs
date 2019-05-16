@@ -18,18 +18,14 @@ namespace DBDStatBot.MessageBuilder
             RemoveFilteredItems.RemoveUselessStats(obj);
 
             EmbedBuilder DBDStatsOutput = new EmbedBuilder();
-            DBDStatsOutput.Title = "Top 5 DBD Stats.";
-            DBDStatsOutput.WithFooter("Contact Coaction#5994 for any issues. This is a work in progress.");
+            DBDStatsOutput.Title = "Interesting DBD Stats.";
+            DBDStatsOutput.WithFooter($"Stats last updated {obj[0].PlayerStats.LastUpdated} UTC");
             DBDStatsOutput.WithDescription(
                 $"Download the rest of your stats [HERE]({url})!");
             DBDStatsOutput.WithColor(4124426);
             foreach (var x in obj[0].PlayerStats.Stats)
             {
-                if (DBDStatsOutput.Fields.Count >= 5)
-                {
-                    break;
-                }               
-                DBDStatsOutput.AddField(x.Name.ToString(), x.Value, false);
+                DBDStatsOutput.AddField(x.Name, String.Format("{0:n0}", x.Value), true);
             }
             return DBDStatsOutput;
         }

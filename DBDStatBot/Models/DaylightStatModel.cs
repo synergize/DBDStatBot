@@ -20,6 +20,7 @@ namespace DBDStatBot.Models
         {
             public string SteamId { get; set; }
             public string GameName { get; set; }
+            public DateTime LastUpdated { get; set; }
             public List<Stat> Stats { get; set; }
         }
         //DaylightStatModel
