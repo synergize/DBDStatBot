@@ -12,9 +12,9 @@ namespace DBDStatBot.APICall.Filter
         public static List<DaylightStatModel> RemoveUselessStats(List<DaylightStatModel> obj)
         {
             ///< summary >
-            /// Loop through < see cref = "StatFilterEnum" /> in order to remove unncessary stats stats from <see cref="DaylightStatModel"/> object.
+            /// Loop through < see cref="aryFilter"/> in order to remove unncessary stats stats from <see cref="DaylightStatModel"/> object.
             /// </ summary >
-            ///
+
             Dictionary<string, string> DictionaryFilter = new Dictionary<string, string>();
             DictionaryFilter.Add("DBD_SkillCheckSuccess", "Successful Skill Checks");
             DictionaryFilter.Add("DBD_Escape", "Successful Escapes");
@@ -23,25 +23,18 @@ namespace DBDStatBot.APICall.Filter
             DictionaryFilter.Add("DBD_HitNearHook", "Times Hit Near Hooks");
             DictionaryFilter.Add("DBD_HookedAndEscape", "Self Unhooks");
 
-            string[] aryFilter = new string[]
-            {
-                "DBD_SkillCheckSuccess",
-                "DBD_Escape",
-                "DBD_BloodwebPoints",
-                "DBD_EscapeThroughHatch",
-                "DBD_HitNearHook",
-                "DBD_HookedAndEscape"
-            };
             for (int i = 0; i < obj[0].PlayerStats.Stats.Count; i++)
             {
-                if (!aryFilter.Contains(obj[0].PlayerStats.Stats[i].Name))
+                string name = obj[0].PlayerStats.Stats[i].Name;
+
+                if (!DictionaryFilter.Keys.Contains(name))
                 {
                     obj[0].PlayerStats.Stats.Remove(obj[0].PlayerStats.Stats[i]);
                     i--;
                 }
                 else
                 {
-                    obj[0].PlayerStats.Stats[i].Name = DictionaryFilter[obj[0].PlayerStats.Stats[i].Name];
+                    obj[0].PlayerStats.Stats[i].Name = DictionaryFilter[name];
                 }
             }
             return obj;

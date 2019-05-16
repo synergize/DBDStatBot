@@ -36,7 +36,7 @@ namespace DBDStatBot.MessageBuilder
             DBDHelp.Title = "Useful Information";
             DBDHelp.WithColor(4124426);
             DBDHelp.WithFooter("Contact Coaction#5994 for any issues. This is a work in progress.");
-            DBDHelp.WithDescription("This bot allows for users to look up their stats in Dead by Daylight. Steam ID must be steamID64. ");
+            DBDHelp.WithDescription("This bot allows for users to look up their stats in Dead by Daylight. Steam ID must be steamID64.");
             DBDHelp.AddField("Stats: ", "!dbdstats <SteamID>", true);
             DBDHelp.AddField("Steam ID Lookup: ", "https://steamid.io/", true);
             return DBDHelp;
