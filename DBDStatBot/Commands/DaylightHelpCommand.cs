@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using DBDStatBot.MessageBuilder;
 using Discord;
 using DBDStatBot.APICall.Dropbox;
+using DBDStatBot.Models;
 
 namespace DBDStatBot.Commands
 {

@@ -27,7 +27,7 @@ namespace DBDStatBot.Commands
             if (stats != null)
             {
                 //File Write
-                GetCheckDirectory.CheckDirectory(StaticDetails.DataDirectoryPath);
+                GetCheckDirectory.CheckDirectory();
                 Save.WriteToFile(stats[0]);
 
                 AccessDropbox LinkToStatsDownload = new AccessDropbox();

@@ -5,6 +5,7 @@ using System;
 using System.Reflection;
 using System.Threading.Tasks;
 using DBDStatBot.Models;
+using DBDStatBot.FileHelper;
 
 namespace DBDStatBot
 {
@@ -16,7 +17,8 @@ namespace DBDStatBot
 
         private async Task MainAsync()
         {
-
+            GetCheckDirectory.CheckDirectory();
+            StaticDetails.PopulateKeys();
             Client = new DiscordSocketClient(new DiscordSocketConfig
             {
                 LogLevel = LogSeverity.Debug

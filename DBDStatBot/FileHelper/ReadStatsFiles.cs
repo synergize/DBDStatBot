@@ -18,7 +18,7 @@ namespace DBDStatBot.FileHelper
         {
             List<DaylightStatModel.Playerstats> ListOfStatsFromFile = new List<DaylightStatModel.Playerstats>();
 
-            var file = File.ReadAllText(StaticDetails.DBDStatsFile);
+            var file = File.ReadAllText(StaticDetails.BuildFilePath(StaticDetails.DataDirectoryPath, StaticDetails.DBDStatsFile));
             if (file != "")
             {
                 JsonConvert.PopulateObject(file, ListOfStatsFromFile);

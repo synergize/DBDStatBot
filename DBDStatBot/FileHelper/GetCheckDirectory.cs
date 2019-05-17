@@ -12,14 +12,13 @@ namespace DBDStatBot.FileHelper
         /// Checks if our Data Directory exists. If it doesn't, we create it.
         /// We also check to see if the JSON file exists. If it doesn't, we create it.
         /// </summary>
-        /// <param name="file"></param>
-    public static void CheckDirectory(string file)
+    public static void CheckDirectory()
         {
             
-            if (!Directory.Exists(file))
+            if (!Directory.Exists(StaticDetails.DataDirectoryPath))
             {
                 //If the directory for our basecode json file doesn't exist we create it along with the json file. 
-                DirectoryInfo dir = Directory.CreateDirectory(file);
+                DirectoryInfo dir = Directory.CreateDirectory(StaticDetails.DataDirectoryPath);
                 var CreateFile = File.Create(StaticDetails.DBDStatsFile);
                 CreateFile.Close();
             }

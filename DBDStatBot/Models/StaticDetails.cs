@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Reflection.Metadata;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace DBDStatBot.Models
 {
@@ -13,12 +14,13 @@ namespace DBDStatBot.Models
         /// Static class that houses critical token and pathing details that the whole program may need to use.  
         /// </ summary >
         private static string DBDAppID = "381210";
-        private static string SteamKey = "38385657BDA9CD55FF7A3647BD16FAE5";
-        private static string BotKey = "NTc1NTkzODgwNDE0NTg0ODQx.XNKNmw.uUAQ9vUtAiSYCjAA41F-NkBxBLs";
+        private static string SteamKey;
+        private static string BotKey;
         private static string DataDirectory = Path.Combine(Path.GetFullPath(Directory.GetCurrentDirectory()), "Data");
         private static string DBDStats = @"DBDStats.json";
-        private static string DboxToken = "HzH-CiskL7gAAAAAAAACm3BOniHcP8YtthEvEgQ3jN9ZX54fm9qqDA37k4NzxLYz";
-        private static string DboxAppkey = "vq2h4kiom4plzsi";
+        private static string TokenFile = @"APITokens.json";
+        private static string DboxToken;
+        private static string DboxAppkey;
         private static int Error = 0;
 
         public static string AppID
@@ -53,6 +55,10 @@ namespace DBDStatBot.Models
         {
             get { return DboxAppkey; }
         }
+        public static string TokenKeyFile
+        {
+            get { return TokenFile; }
+        }
         public static int ErrorCode
         {
             get { return Error; }
@@ -61,6 +67,15 @@ namespace DBDStatBot.Models
         public static string BuildFilePath(string path, string file)
         {
             return Path.Combine(path, file);
+        }
+        public static void PopulateKeys()
+        {
+            TokenModels GetKeys = new TokenModels();
+            var Keys = GetKeys.ReadFile();
+            SteamKey = Keys.SteamKey;
+            BotKey = Keys.DiscordBotKey;
+            DboxToken = Keys.DropBoxToken;
+            DboxAppkey = Keys.DropBoxAppKey;
         }
     }
 }
