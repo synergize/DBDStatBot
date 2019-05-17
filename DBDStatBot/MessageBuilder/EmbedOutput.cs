@@ -15,7 +15,8 @@ namespace DBDStatBot.MessageBuilder
         /// </ summary >
         public static EmbedBuilder BuildDBDStats(List<DaylightStatModel> obj, string url)  
         {
-            RemoveFilteredItems.RemoveUselessStats(obj);
+            RemoveFilteredItems FilterItems = new RemoveFilteredItems();
+            FilterItems.RemoveUselessStats(obj);
 
             EmbedBuilder DBDStatsOutput = new EmbedBuilder();
             DBDStatsOutput.Title = "Interesting DBD Stats.";
@@ -41,16 +42,48 @@ namespace DBDStatBot.MessageBuilder
             DBDHelp.AddField("Steam ID Lookup: ", "https://steamid.io/", true);
             return DBDHelp;
         }
-        public static EmbedBuilder DBDAPIFailure()
+        public static EmbedBuilder DBDAPIFailure(int num)
         {
-            EmbedBuilder DBDFail = new EmbedBuilder();
-            DBDFail.Title = "Stat Lookup Failed.";
-            DBDFail.WithColor(16580608);
-            DBDFail.WithFooter("Contact Coaction#5994 for any issues. This is a work in progress.");
-            DBDFail.AddField("Profile Settings: ", "Make sure \"My Profile\" and \"Game Details\" are set to Public within Steam's privacy settings.", true);
-            DBDFail.AddField("Time To Update: ", "Steam can take time to update your privacy settings. Give 10-15 minutes before trying again.", true);
-
-            return DBDFail;
+            switch (num)
+            {
+                case 1:
+                    return DBDSteamAPIFail();
+                case 2:
+                    return DBDLinkCreationFail();
+            }
+            return GenericError();
         }
+        private static EmbedBuilder DBDSteamAPIFail()
+        {
+            EmbedBuilder DBDSteamAPIFail = new EmbedBuilder();
+            DBDSteamAPIFail.Title = "Stat Lookup Failed.";
+            DBDSteamAPIFail.WithColor(16580608);
+            DBDSteamAPIFail.WithFooter("Contact Coaction#5994 for any issues. This is a work in progress.");
+            DBDSteamAPIFail.AddField("Profile Settings: ", "Make sure \"My Profile\" and \"Game Details\" are set to Public within Steam's privacy settings.", true);
+            DBDSteamAPIFail.AddField("Time To Update: ", "Steam can take time to update your privacy settings. Give 10-15 minutes before trying again.", true);
+
+            return DBDSteamAPIFail;
+        }
+
+        private static EmbedBuilder DBDLinkCreationFail()
+        {
+            EmbedBuilder DBDLinkCreationFail = new EmbedBuilder();
+            DBDLinkCreationFail.Title = "Stat Lookup Failed.";
+            DBDLinkCreationFail.WithColor(16580608);
+            DBDLinkCreationFail.WithFooter("URL Failure");
+            DBDLinkCreationFail.AddField("Connection Failed: ", "Connection to download stats file failed. Please try again.");
+
+            return DBDLinkCreationFail;
+        }
+        private static EmbedBuilder GenericError()
+        {
+            EmbedBuilder GenericError = new EmbedBuilder();
+            GenericError.Title = "Stat Lookup Failed.";
+            GenericError.WithColor(16580608);
+            GenericError.AddField("Error", "An error has occured. Please contact Coaction");
+
+            return GenericError;
+        }
+
     }
 }

@@ -5,20 +5,22 @@ using System.IO;
 
 namespace DBDStatBot.FileHelper
 {
-    public static class SaveStatsToJson
+    public class SaveStatsToJson
     {
         /// <summary>
         /// Class file designed to save our list of player's stats, steam ID and Game to a JSON file. 
         /// </summary>
         /// <param name="newEntryObj"></param>
-        public static void WriteToFile(DaylightStatModel newEntryObj)
+        public void WriteToFile(DaylightStatModel newEntryObj)
         {
-            List<DaylightStatModel.Playerstats> ListOfPlayers = new List<DaylightStatModel.Playerstats>();            
-            var StatsFromFile = ReadStatsFiles.ReadFile();
+            List<DaylightStatModel.Playerstats> ListOfPlayers = new List<DaylightStatModel.Playerstats>();
+            ReadStatsFiles ReadStats = new ReadStatsFiles();
+            UpdateStatsFiles Update = new UpdateStatsFiles();
+            var StatsFromFile = ReadStats.ReadFile();
 
             if (StatsFromFile != null)
             {
-                ListOfPlayers = UpdateStatsFiles.UpdateStats(StatsFromFile, newEntryObj);
+                ListOfPlayers = Update.UpdateStats(StatsFromFile, newEntryObj);
             }
             else
             {

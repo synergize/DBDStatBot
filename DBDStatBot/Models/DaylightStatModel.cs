@@ -9,7 +9,6 @@ namespace DBDStatBot.Models
         ///< summary >
         /// Data model used to pull in Dead by Daylight stats from Steam API.
         /// </ summary >
-
         public class Stat
         {
             public string Name { get; set; }

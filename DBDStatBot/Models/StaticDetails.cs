@@ -19,6 +19,7 @@ namespace DBDStatBot.Models
         private static string DBDStats = @"DBDStats.json";
         private static string DboxToken = "HzH-CiskL7gAAAAAAAACm3BOniHcP8YtthEvEgQ3jN9ZX54fm9qqDA37k4NzxLYz";
         private static string DboxAppkey = "vq2h4kiom4plzsi";
+        private static int Error = 0;
 
         public static string AppID
         {
@@ -51,6 +52,11 @@ namespace DBDStatBot.Models
         public static string DropBoxAppKey
         {
             get { return DboxAppkey; }
+        }
+        public static int ErrorCode
+        {
+            get { return Error; }
+            set { Error = value; }
         }
         public static string BuildFilePath(string path, string file)
         {

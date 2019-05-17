@@ -7,14 +7,14 @@ using System.Text;
 
 namespace DBDStatBot.FileHelper
 {
-    public static class ReadStatsFiles
+    public class ReadStatsFiles
     {
         /// <summary>
         /// Class file that reads the json file from disk. If the file isn't empty we return it's contents.
         /// Otherwise we return null.
         /// </summary>
         /// <returns></returns>
-        public static List<DaylightStatModel.Playerstats> ReadFile()
+        public List<DaylightStatModel.Playerstats> ReadFile()
         {
             List<DaylightStatModel.Playerstats> ListOfStatsFromFile = new List<DaylightStatModel.Playerstats>();
 

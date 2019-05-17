@@ -19,14 +19,16 @@ namespace DBDStatBot.Commands
         /// </ summary >
         [Command("dbdstats")]
         public async Task DBDStats(string steamId)
-        {   
-            var stats = PullPlayerStats.PlayerStats(steamId);
+        {
+            PullPlayerStats PullStats = new PullPlayerStats();
+            SaveStatsToJson Save = new SaveStatsToJson();
+            var stats = PullStats.PlayerStats(steamId);
 
             if (stats != null)
             {
                 //File Write
                 GetCheckDirectory.CheckDirectory(StaticDetails.DataDirectoryPath);
-                SaveStatsToJson.WriteToFile(stats[0]);
+                Save.WriteToFile(stats[0]);
 
                 AccessDropbox LinkToStatsDownload = new AccessDropbox();
                 var BuildOutput = EmbedOutput.BuildDBDStats(stats, LinkToStatsDownload.SCreateDBoxClient(stats).Result);
@@ -34,7 +36,7 @@ namespace DBDStatBot.Commands
             }
             else
             {
-                await Context.Channel.SendMessageAsync("", false, EmbedOutput.DBDAPIFailure().Build());
+                await Context.Channel.SendMessageAsync("", false, EmbedOutput.DBDAPIFailure(StaticDetails.ErrorCode).Build());
             }
         }
     }

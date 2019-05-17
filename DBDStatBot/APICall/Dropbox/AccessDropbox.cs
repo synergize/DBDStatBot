@@ -23,12 +23,11 @@ namespace DBDStatBot.APICall.Dropbox
                     {
 
                         var UploadFileDbox = dbox.Files.UploadAsync($"/{PlayerData[0].PlayerStats.SteamId}.json", WriteMode.Overwrite.Instance, body: mem);
-                        var DboxListSharedLinks = dbox.Sharing.ListSharedLinksAsync($"/{PlayerData[0].PlayerStats.SteamId}.json");
-
                         UploadFileDbox.Wait();
+                        var DboxListSharedLinks = dbox.Sharing.ListSharedLinksAsync($"/{PlayerData[0].PlayerStats.SteamId}.json");
+                        DboxListSharedLinks.Wait();
                         //SharedLinkSettings Settings = new SharedLinkSettings();
                         //Settings.Expires.Value.Add
-                        DboxListSharedLinks.Wait();
 
                         foreach (var current in DboxListSharedLinks.Result.Links)
                         {
@@ -44,6 +43,7 @@ namespace DBDStatBot.APICall.Dropbox
                     }
                     catch (Exception msg)
                     {
+                        StaticDetails.ErrorCode = 2;
                         Console.WriteLine(msg);
                         throw;
                     }

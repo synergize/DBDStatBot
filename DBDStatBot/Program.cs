@@ -64,7 +64,7 @@ namespace DBDStatBot
         }
         private async Task Client_Ready()
         {
-            await Client.SetGameAsync("Dead By Daylight", "https://discordapp.com/developers", ActivityType.Listening);
+            await Client.SetGameAsync("Dead By Daylight", null, ActivityType.Playing);
         }
 
         //If someone adds a reaction, run x code. 
