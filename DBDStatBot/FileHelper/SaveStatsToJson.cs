@@ -11,6 +11,7 @@ namespace DBDStatBot.FileHelper
         /// Class file designed to save our list of player's stats, steam ID and Game to a JSON file. 
         /// </summary>
         /// <param name="newEntryObj"></param>
+
         public void WriteToFile(DaylightStatModel newEntryObj)
         {
             List<DaylightStatModel.Playerstats> ListOfPlayers = new List<DaylightStatModel.Playerstats>();
@@ -26,7 +27,7 @@ namespace DBDStatBot.FileHelper
             {
                 ListOfPlayers.Add(newEntryObj.PlayerStats);
             }
-            
+            SplitPlayerStats(ListOfPlayers);
             using (StreamWriter file = File.CreateText(StaticDetails.BuildFilePath(StaticDetails.DataDirectoryPath, StaticDetails.DBDStatsFile)))
             {
                 JsonSerializer serializer = new JsonSerializer();
@@ -35,6 +36,19 @@ namespace DBDStatBot.FileHelper
                 
             }
 
+        }
+        private void SplitPlayerStats(List<DaylightStatModel.Playerstats> ListOfPlayers)
+        {
+            foreach (var item in ListOfPlayers)
+            {
+                using (StreamWriter file = File.CreateText(StaticDetails.BuildFilePath(StaticDetails.DataDirectoryPath, $"{item.SteamId}.json")))
+                {
+                    JsonSerializer serializer = new JsonSerializer();
+                    serializer.Formatting = Formatting.Indented;
+                    serializer.Serialize(file, item);
+
+                }
+            }
         }
     }
 }

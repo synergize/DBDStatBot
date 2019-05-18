@@ -16,7 +16,7 @@ namespace DBDStatBot.APICall
         /// API Call to Steam's API and storing the call within the < see cref = "DaylightStatModel" /> data model.
         /// </ summary >
         /// 
-        public List<DaylightStatModel> PlayerStats(string _steamID)
+        public DaylightStatModel PlayerStats(string _steamID)
         {
             using (var web = new WebClient())
             {
@@ -35,10 +35,10 @@ namespace DBDStatBot.APICall
 
                 //Store downloaded stats into memory. 
                 var DownloadedStats = JsonConvert.DeserializeObject<DaylightStatModel>(_downloadNews);
-                ListOfPlayers.Add(DownloadedStats);
-                ListOfPlayers[0].PlayerStats.LastUpdated = DateTime.UtcNow;
+                //ListOfPlayers.Add(DownloadedStats);                
+                DownloadedStats.PlayerStats.LastUpdated = DateTime.UtcNow;
 
-                return ListOfPlayers;
+                return DownloadedStats;
             }
         }
     }

@@ -28,7 +28,7 @@ namespace DBDStatBot.Commands
             {
                 //File Write
                 GetCheckDirectory.CheckDirectory();
-                Save.WriteToFile(stats[0]);
+                Save.WriteToFile(stats);
 
                 AccessDropbox LinkToStatsDownload = new AccessDropbox();
                 var BuildOutput = EmbedOutput.BuildDBDStats(stats, LinkToStatsDownload.SCreateDBoxClient(stats).Result);

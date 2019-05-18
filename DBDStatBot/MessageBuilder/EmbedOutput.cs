@@ -13,18 +13,18 @@ namespace DBDStatBot.MessageBuilder
         ///< summary >
         /// Class built to house any output the bot may need to distribute. We do this by using the EmbedBuilder from Discord. 
         /// </ summary >
-        public static EmbedBuilder BuildDBDStats(List<DaylightStatModel> obj, string url)  
+        public static EmbedBuilder BuildDBDStats(DaylightStatModel obj, string url)  
         {
             RemoveFilteredItems FilterItems = new RemoveFilteredItems();
             FilterItems.RemoveUselessStats(obj);
 
             EmbedBuilder DBDStatsOutput = new EmbedBuilder();
             DBDStatsOutput.Title = "Interesting DBD Stats.";
-            DBDStatsOutput.WithFooter($"Stats last updated {obj[0].PlayerStats.LastUpdated} UTC");
+            DBDStatsOutput.WithFooter($"Stats last updated {obj.PlayerStats.LastUpdated} UTC");
             DBDStatsOutput.WithDescription(
                 $"Download the rest of your stats [HERE]({url})!");
             DBDStatsOutput.WithColor(4124426);
-            foreach (var x in obj[0].PlayerStats.Stats)
+            foreach (var x in obj.PlayerStats.Stats)
             {
                 DBDStatsOutput.AddField(x.Name, String.Format("{0:n0}", x.Value), true);
             }
