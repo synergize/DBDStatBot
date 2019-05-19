@@ -1,4 +1,5 @@
-﻿using DBDStatBot.Models;
+﻿using DBDStatBot.DateTime_Helper;
+using DBDStatBot.Models;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -16,8 +17,9 @@ namespace DBDStatBot.APICall
         /// API Call to Steam's API and storing the call within the < see cref = "DaylightStatModel" /> data model.
         /// </ summary >
         /// 
-        public DaylightStatModel PlayerStats(string _steamID)
+        public DaylightStatModel.Playerstats PlayerStats(string _steamID)
         {
+            DaylightStatModel.Playerstats obj = new DaylightStatModel.Playerstats();
             using (var web = new WebClient())
             {
                 try
@@ -32,13 +34,12 @@ namespace DBDStatBot.APICall
                     Console.WriteLine(msg);
                     return null;
                 }
-
                 //Store downloaded stats into memory. 
                 var DownloadedStats = JsonConvert.DeserializeObject<DaylightStatModel>(_downloadNews);
-                //ListOfPlayers.Add(DownloadedStats);                
-                DownloadedStats.PlayerStats.LastUpdated = DateTime.UtcNow;
+                obj = DownloadedStats.PlayerStats;     
+                obj.LastUpdated = GetTime.CurrentTime();
 
-                return DownloadedStats;
+                return obj;
             }
         }
     }

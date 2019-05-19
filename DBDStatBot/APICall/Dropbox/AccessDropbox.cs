@@ -12,30 +12,30 @@ namespace DBDStatBot.APICall.Dropbox
 {
     public class AccessDropbox
     {
-        public async Task<string> SCreateDBoxClient(DaylightStatModel PlayerData)
+        public async Task<string> SCreateDBoxClient(DaylightStatModel.Playerstats PlayerData)
         {
 
             using (var dbox = new DropboxClient(StaticDetails.DropboxToken))
             {
-                using (var mem = new MemoryStream(File.ReadAllBytes(StaticDetails.BuildFilePath(StaticDetails.DataDirectoryPath, $"{PlayerData.PlayerStats.SteamId}.json"))))
+                using (var mem = new MemoryStream(File.ReadAllBytes(StaticDetails.BuildFilePath(StaticDetails.DataDirectoryPath, $"{PlayerData.SteamId}.json"))))
                 {
                     try
                     {                                        
-                        var UploadFileDbox = dbox.Files.UploadAsync($"/{PlayerData.PlayerStats.SteamId}.json", WriteMode.Overwrite.Instance, body: mem);
+                        var UploadFileDbox = dbox.Files.UploadAsync($"/{PlayerData.SteamId}.json", WriteMode.Overwrite.Instance, body: mem);
                         UploadFileDbox.Wait();
-                        var DboxListSharedLinks = dbox.Sharing.ListSharedLinksAsync($"/{PlayerData.PlayerStats.SteamId}.json");
+                        var DboxListSharedLinks = dbox.Sharing.ListSharedLinksAsync($"/{PlayerData.SteamId}.json");
                         DboxListSharedLinks.Wait();
                         //SharedLinkSettings Settings = new SharedLinkSettings();
                         //Settings.Expires.Value.Add
 
                         foreach (var current in DboxListSharedLinks.Result.Links)
                         {
-                            if (current.Name == $"{PlayerData.PlayerStats.SteamId}.json")
+                            if (current.Name == $"{PlayerData.SteamId}.json")
                             {
                                 return current.Url;
                             }
                         }
-                        var DownloadLink = dbox.Sharing.CreateSharedLinkWithSettingsAsync($"/{PlayerData.PlayerStats.SteamId}.json");
+                        var DownloadLink = dbox.Sharing.CreateSharedLinkWithSettingsAsync($"/{PlayerData.SteamId}.json");
                         DownloadLink.Wait();
                         return DownloadLink.Result.Url;
                         }

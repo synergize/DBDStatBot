@@ -12,12 +12,12 @@ namespace DBDStatBot.FileHelper
         /// </summary>
         /// <param name="newEntryObj"></param>
 
-        public void WriteToFile(DaylightStatModel newEntryObj)
+        public void WriteToFile(DaylightStatModel.Playerstats newEntryObj)
         {
             List<DaylightStatModel.Playerstats> ListOfPlayers = new List<DaylightStatModel.Playerstats>();
             ReadStatsFiles ReadStats = new ReadStatsFiles();
-            UpdateStatsFiles Update = new UpdateStatsFiles();
-            var StatsFromFile = ReadStats.ReadFile();
+            UpdateStatsFiles Update = new UpdateStatsFiles();            
+            var StatsFromFile = ReadStats.ReadMainFile();
 
             if (StatsFromFile != null)
             {
@@ -25,7 +25,7 @@ namespace DBDStatBot.FileHelper
             }
             else
             {
-                ListOfPlayers.Add(newEntryObj.PlayerStats);
+                ListOfPlayers.Add(newEntryObj);
             }
             SplitPlayerStats(ListOfPlayers);
             using (StreamWriter file = File.CreateText(StaticDetails.BuildFilePath(StaticDetails.DataDirectoryPath, StaticDetails.DBDStatsFile)))

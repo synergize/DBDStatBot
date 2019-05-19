@@ -12,17 +12,18 @@ namespace DBDStatBot.FileHelper
         /// If the new entry doesn't exist in the json file we add the new entry and return it.
         /// </ summary >
         
-        public List<DaylightStatModel.Playerstats> UpdateStats(List<DaylightStatModel.Playerstats> StatsFromFileList, DaylightStatModel NewEntryObj)
+        public List<DaylightStatModel.Playerstats> UpdateStats(List<DaylightStatModel.Playerstats> StatsFromFileList, DaylightStatModel.Playerstats NewEntryObj)
         {
             for (int i = 0; i < StatsFromFileList.Count; i++)
             {
-                if (StatsFromFileList[i].SteamId == NewEntryObj.PlayerStats.SteamId)
+                if (StatsFromFileList[i].SteamId == NewEntryObj.SteamId)
                 {
-                    StatsFromFileList[i].Stats.Add(NewEntryObj.PlayerStats.Stats[i]);
+                    StatsFromFileList[i].Stats.Add(NewEntryObj.Stats[i]);
+                    StatsFromFileList[i].LastUpdated = NewEntryObj.LastUpdated;
                     return StatsFromFileList;
                 }
             }
-            StatsFromFileList.Add(NewEntryObj.PlayerStats);
+            StatsFromFileList.Add(NewEntryObj);
             return StatsFromFileList;
         }
     }
