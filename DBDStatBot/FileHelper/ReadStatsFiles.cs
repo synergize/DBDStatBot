@@ -14,11 +14,11 @@ namespace DBDStatBot.FileHelper
         /// Otherwise we return null.
         /// </summary>
         /// <returns></returns>
-        string file = File.ReadAllText(StaticDetails.BuildFilePath(StaticDetails.DataDirectoryPath, StaticDetails.DBDStatsFile));
-        public List<DaylightStatModel.Playerstats> ReadFile()
+        
+        public List<DaylightStatModel.Playerstats> ReadMainFile()
         {
             List<DaylightStatModel.Playerstats> ListOfStatsFromFile = new List<DaylightStatModel.Playerstats>();
-            
+            var file = File.ReadAllText(StaticDetails.BuildFilePath(StaticDetails.DataDirectoryPath, StaticDetails.DBDStatsFile));
             if (file != "")
             {
                 JsonConvert.PopulateObject(file, ListOfStatsFromFile);
@@ -27,6 +27,28 @@ namespace DBDStatBot.FileHelper
             else
             {
                 return null;
+            }
+        }
+        public DaylightStatModel.Playerstats ReadIndividualPlayerFile(string id)
+        {
+            DaylightStatModel.Playerstats obj = new DaylightStatModel.Playerstats();
+            try
+            {
+                var file = File.ReadAllText(StaticDetails.BuildFilePath(StaticDetails.DataDirectoryPath, $"{id}.json"));
+                if (file != "")
+                {
+                    JsonConvert.PopulateObject(file, obj);
+                    return obj;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            catch (Exception msg)
+            {
+                Console.WriteLine(msg);
+                throw;
             }
         }
     }

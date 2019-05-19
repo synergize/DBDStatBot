@@ -9,6 +9,7 @@ using DBDStatBot.FileHelper;
 using DBDStatBot.MessageBuilder;
 using DBDStatBot.Models;
 using Discord;
+using DBDStatBot.DateTime_Helper;
 
 namespace DBDStatBot.Commands
 {
@@ -22,16 +23,22 @@ namespace DBDStatBot.Commands
         {
             PullPlayerStats PullStats = new PullPlayerStats();
             SaveStatsToJson Save = new SaveStatsToJson();
-            var stats = PullStats.PlayerStats(steamId);
-
-            if (stats != null)
+            ReadStatsFiles ReadFiles = new ReadStatsFiles();
+            DaylightStatModel.Playerstats PlayerStats = null;
+            DateTime Time = GetTime.CurrentTime();
+            PlayerStats = ReadFiles.ReadIndividualPlayerFile(steamId);
+            if (PlayerStats == null || Time.AddHours(-24) > PlayerStats.LastUpdated)
+            {
+                PlayerStats = PullStats.PlayerStats(steamId);
+            }
+            if (PlayerStats != null)
             {
                 //File Write
                 GetCheckDirectory.CheckDirectory();
-                Save.WriteToFile(stats);
+                Save.WriteToFile(PlayerStats);
 
                 AccessDropbox LinkToStatsDownload = new AccessDropbox();
-                var BuildOutput = EmbedOutput.BuildDBDStats(stats, LinkToStatsDownload.SCreateDBoxClient(stats).Result);
+                var BuildOutput = EmbedOutput.BuildDBDStats(PlayerStats, LinkToStatsDownload.SCreateDBoxClient(PlayerStats).Result);
                 await Context.Channel.SendMessageAsync("", false, BuildOutput.Build());
             }
             else
