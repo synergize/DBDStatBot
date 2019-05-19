@@ -34,10 +34,15 @@ namespace DBDStatBot.FileHelper
             DaylightStatModel.Playerstats obj = new DaylightStatModel.Playerstats();
             try
             {
+                if (!File.Exists(StaticDetails.BuildFilePath(StaticDetails.DataDirectoryPath, $"{id}.json")))
+                {
+                    var SteamIDJson = File.Create(StaticDetails.BuildFilePath(StaticDetails.DataDirectoryPath, $"{id}.json"));
+                    SteamIDJson.Close();
+                }
                 var file = File.ReadAllText(StaticDetails.BuildFilePath(StaticDetails.DataDirectoryPath, $"{id}.json"));
                 if (file != "")
                 {
-                    JsonConvert.PopulateObject(file, obj);
+                    JsonConvert.PopulateObject(file, obj);                   
                     return obj;
                 }
                 else
