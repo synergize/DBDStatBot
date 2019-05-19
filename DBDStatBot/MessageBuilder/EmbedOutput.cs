@@ -5,6 +5,7 @@ using Discord;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 using DBDStatBot.APICall.Filter;
+using DBDStatBot.APICall;
 
 namespace DBDStatBot.MessageBuilder
 {
@@ -16,11 +17,20 @@ namespace DBDStatBot.MessageBuilder
         public static EmbedBuilder BuildDBDStats(DaylightStatModel.Playerstats obj, string url)  
         {
             RemoveFilteredItems FilterItems = new RemoveFilteredItems();
+            PullSteamUserData Pull = new PullSteamUserData();
+            var SteamInfo = Pull.UserSummary(obj.SteamId);
             FilterItems.RemoveUselessStats(obj);
-
             EmbedBuilder DBDStatsOutput = new EmbedBuilder();
-            DBDStatsOutput.Title = "Interesting DBD Stats.";
-            DBDStatsOutput.WithFooter($"Stats last updated {obj.LastUpdated} UTC");
+            if (SteamInfo != null)
+            {
+                DBDStatsOutput.Title = $"{SteamInfo.response.players[0].Personaname}'s Dead By Daylight Stats.";
+            }
+            else
+            {
+                DBDStatsOutput.Title = "Interesting DBD Stats.";
+            }
+            DBDStatsOutput.Timestamp = obj.LastUpdated;
+            DBDStatsOutput.WithFooter("Contact Coaction#5994 for any issues. This is a work in progress.");
             DBDStatsOutput.WithDescription(
                 $"Download the rest of your stats [HERE]({url})!");
             DBDStatsOutput.WithColor(4124426);
