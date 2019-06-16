@@ -19,7 +19,7 @@ namespace DBDStatBot.MessageBuilder
             RemoveFilteredItems FilterItems = new RemoveFilteredItems();
             PullSteamUserData Pull = new PullSteamUserData();
             var SteamInfo = Pull.UserSummary(obj.SteamId);
-            FilterItems.RemoveUselessStats(obj);
+            obj = FilterItems.RemoveUselessStats(obj);
             EmbedBuilder DBDStatsOutput = new EmbedBuilder();
             if (SteamInfo != null)
             {

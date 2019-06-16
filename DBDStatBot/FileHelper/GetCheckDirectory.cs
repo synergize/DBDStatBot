@@ -25,7 +25,7 @@ namespace DBDStatBot.FileHelper
             else if (!GetCodeExists.CodeExists())
             {
                 //if the directory exists but the file doesn't, we create the file. 
-                var CreateFile = File.Create(StaticDetails.DBDStatsFile);
+                var CreateFile = File.Create(StaticDetails.BuildFilePath(StaticDetails.DataDirectoryPath, StaticDetails.DBDStatsFile));
                 CreateFile.Close();
             }
         }

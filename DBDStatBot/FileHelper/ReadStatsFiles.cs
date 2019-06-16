@@ -18,15 +18,23 @@ namespace DBDStatBot.FileHelper
         public List<DaylightStatModel.Playerstats> ReadMainFile()
         {
             List<DaylightStatModel.Playerstats> ListOfStatsFromFile = new List<DaylightStatModel.Playerstats>();
-            var file = File.ReadAllText(StaticDetails.BuildFilePath(StaticDetails.DataDirectoryPath, StaticDetails.DBDStatsFile));
-            if (file != "")
+            try
             {
-                JsonConvert.PopulateObject(file, ListOfStatsFromFile);
-                return ListOfStatsFromFile;                
+                var file = File.ReadAllText(StaticDetails.BuildFilePath(StaticDetails.DataDirectoryPath, StaticDetails.DBDStatsFile));
+                if (file != "")
+                {
+                    JsonConvert.PopulateObject(file, ListOfStatsFromFile);
+                    return ListOfStatsFromFile;
+                }
+                else
+                {
+                    return null;
+                }
             }
-            else
+            catch (Exception e)
             {
-                return null;
+                Console.WriteLine(e);
+                throw;
             }
         }
         public DaylightStatModel.Playerstats ReadIndividualPlayerFile(string id)

@@ -66,7 +66,7 @@ namespace DBDStatBot
         }
         private async Task Client_Ready()
         {
-            await Client.SetGameAsync("Dead By Daylight", null, ActivityType.Playing);
+            await Client.SetGameAsync("!dbdhelp for information!", null, ActivityType.Playing);
         }
 
         //If someone adds a reaction, run x code. 
