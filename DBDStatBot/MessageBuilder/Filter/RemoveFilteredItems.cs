@@ -14,27 +14,26 @@ namespace DBDStatBot.APICall.Filter
             ///< summary >
             /// Loop through < see cref="aryFilter"/> in order to remove unncessary stats stats from <see cref="DaylightStatModel"/> object.
             /// </ summary >
-
-            if (StatFilterDictionary.DictionaryFilter.Count == 0)
-            {
-                StatFilterDictionary.DictionaryFilter = StatFilterDictionary.GetFilterDictionary();
-            }
-
-            for (int i = 0; i < obj.Stats.Count; i++)
-            {
-                string name = obj.Stats[i].Name;
-
-                if (!StatFilterDictionary.DictionaryFilter.Keys.Contains(name))
+            /// 
+                DaylightStatModel.Playerstats newobj = new DaylightStatModel.Playerstats();
+                newobj.Stats = new List<DaylightStatModel.Stat>();
+                if (StatFilterDictionary.DictionaryFilter.Count == 0)
                 {
-                    obj.Stats.Remove(obj.Stats[i]);
-                    i--;
+                    StatFilterDictionary.DictionaryFilter = StatFilterDictionary.GetFilterDictionary();
                 }
-                else
+                newobj.GameName = obj.GameName;
+                newobj.LastUpdated = obj.LastUpdated;
+                newobj.SteamId = obj.SteamId;
+                foreach (var item in StatFilterDictionary.DictionaryFilter)
                 {
-                    obj.Stats[i].Name = StatFilterDictionary.DictionaryFilter[name];
+                    var current = obj.Stats.Find(x => x.Name == item.Key);
+                    if (current == null) break;
+                    current.Name = StatFilterDictionary.DictionaryFilter[current.Name];
+                    newobj.Stats.Add(current);
                 }
+                return newobj;
             }
-            return obj;
+            
         }
     }
 }

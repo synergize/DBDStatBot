@@ -14,7 +14,7 @@ namespace DBDStatBot.FileHelper
         /// <returns></returns>
         public static bool CodeExists()
         {
-            return File.Exists(StaticDetails.DBDStatsFile);
+            return File.Exists(StaticDetails.BuildFilePath(StaticDetails.DataDirectoryPath, StaticDetails.DBDStatsFile));
         }
     }
 }

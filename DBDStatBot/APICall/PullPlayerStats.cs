@@ -11,8 +11,6 @@ namespace DBDStatBot.APICall
     class PullPlayerStats
     {
         private string _downloadNews = null;
-        //private static List<DaylightStatModel> ListOfPlayers = new List<DaylightStatModel>(); //Uncomment to maintain list between classes. Doesn't re-up when being accessed. 
-        private List<DaylightStatModel> ListOfPlayers = new List<DaylightStatModel>();
         ///< summary >
         /// API Call to Steam's API and storing the call within the < see cref = "DaylightStatModel" /> data model.
         /// </ summary >
