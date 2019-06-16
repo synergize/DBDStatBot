@@ -30,13 +30,12 @@ namespace DBDStatBot.Commands
             if (PlayerStats == null || Time.AddHours(-24) > PlayerStats.LastUpdated)
             {
                 PlayerStats = PullStats.PlayerStats(steamId);
+                GetCheckDirectory.CheckDirectory();
+                Save.WriteToFile(PlayerStats);
             }
             if (PlayerStats != null)
             {
                 //File Write
-                GetCheckDirectory.CheckDirectory();
-                Save.WriteToFile(PlayerStats);
-
                 AccessDropbox LinkToStatsDownload = new AccessDropbox();
                 var BuildOutput = EmbedOutput.BuildDBDStats(PlayerStats, LinkToStatsDownload.SCreateDBoxClient(PlayerStats).Result);
                 await Context.Channel.SendMessageAsync("", false, BuildOutput.Build());

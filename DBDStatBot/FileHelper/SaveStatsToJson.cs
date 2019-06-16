@@ -14,40 +14,11 @@ namespace DBDStatBot.FileHelper
 
         public void WriteToFile(DaylightStatModel.Playerstats newEntryObj)
         {
-            List<DaylightStatModel.Playerstats> ListOfPlayers = new List<DaylightStatModel.Playerstats>();
-            ReadStatsFiles ReadStats = new ReadStatsFiles();
-            UpdateStatsFiles Update = new UpdateStatsFiles();            
-            var StatsFromFile = ReadStats.ReadMainFile();
-
-            if (StatsFromFile != null)
-            {
-                ListOfPlayers = Update.UpdateStats(StatsFromFile, newEntryObj);
-            }
-            else
-            {
-                ListOfPlayers.Add(newEntryObj);
-            }
-            SplitPlayerStats(ListOfPlayers);
-            using (StreamWriter file = File.CreateText(StaticDetails.BuildFilePath(StaticDetails.DataDirectoryPath, StaticDetails.DBDStatsFile)))
+            using (StreamWriter file = File.CreateText(StaticDetails.BuildFilePath(StaticDetails.DataDirectoryPath, $"{newEntryObj.SteamId}.json")))
             {
                 JsonSerializer serializer = new JsonSerializer();
                 serializer.Formatting = Formatting.Indented;
-                serializer.Serialize(file, ListOfPlayers);
-                
-            }
-
-        }
-        private void SplitPlayerStats(List<DaylightStatModel.Playerstats> ListOfPlayers)
-        {
-            foreach (var item in ListOfPlayers)
-            {
-                using (StreamWriter file = File.CreateText(StaticDetails.BuildFilePath(StaticDetails.DataDirectoryPath, $"{item.SteamId}.json")))
-                {
-                    JsonSerializer serializer = new JsonSerializer();
-                    serializer.Formatting = Formatting.Indented;
-                    serializer.Serialize(file, item);
-
-                }
+                serializer.Serialize(file, newEntryObj);                
             }
         }
     }
