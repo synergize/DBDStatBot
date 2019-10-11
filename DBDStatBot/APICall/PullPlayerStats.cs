@@ -24,13 +24,12 @@ namespace DBDStatBot.APICall
                 {
                     var _url =
                     string.Format($"http://api.steampowered.com/ISteamUserStats/GetUserStatsForGame/v0002/?appid={StaticDetails.AppID}&key={StaticDetails.SteamAPIKey}&steamid={_steamID}&format=json");
-                    _downloadNews = web.DownloadString(_url);
+                    _downloadNews = web.DownloadString(_url);                    
                 }
                 catch (WebException msg)
                 {
-                    StaticDetails.ErrorCode = 1;
-                    Console.WriteLine(msg);
-                    return null;
+                    obj.SteamId = "1";
+                    return obj;
                 }
                 //Store downloaded stats into memory. 
                 var DownloadedStats = JsonConvert.DeserializeObject<DaylightStatModel>(_downloadNews);
