@@ -16,8 +16,8 @@ namespace DBDStatBot.MessageBuilder
         /// </ summary >
         public static EmbedBuilder BuildDBDStats(DaylightStatModel.Playerstats obj, string url)  
         {
-            RemoveFilteredItems FilterItems = new RemoveFilteredItems();
             PullSteamUserData Pull = new PullSteamUserData();
+            RemoveFilteredItems FilterItems = new RemoveFilteredItems();
             var SteamInfo = Pull.UserSummary(obj.SteamId);
             obj = FilterItems.RemoveUselessStats(obj);
             EmbedBuilder DBDStatsOutput = new EmbedBuilder();
@@ -32,7 +32,7 @@ namespace DBDStatBot.MessageBuilder
             DBDStatsOutput.Timestamp = obj.LastUpdated;
             DBDStatsOutput.WithFooter("Contact Coaction#5994 for any issues. This is a work in progress.");
             DBDStatsOutput.WithDescription(
-                $"Download the rest of your stats [HERE]({url})!");
+                $"Download the rest of your stats [HERE]({url})! \n\n Hours Played: {SteamInfo.Game.playtime_forever.ToString() ?? "No Hours Found"} \n");
             DBDStatsOutput.WithColor(4124426);
             foreach (var x in obj.Stats)
             {
@@ -52,13 +52,13 @@ namespace DBDStatBot.MessageBuilder
             DBDHelp.AddField("Steam ID Lookup: ", "https://steamid.io/", true);
             return DBDHelp;
         }
-        public static EmbedBuilder DBDAPIFailure(int num)
+        public static EmbedBuilder DBDAPIFailure(string errorCode)
         {
-            switch (num)
+            switch (errorCode)
             {
-                case 1:
+                case "1":                    
                     return DBDSteamAPIFail();
-                case 2:
+                case "2":                    
                     return DBDLinkCreationFail();
             }
             return GenericError();

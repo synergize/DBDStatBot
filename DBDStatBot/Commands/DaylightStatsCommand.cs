@@ -10,6 +10,7 @@ using DBDStatBot.MessageBuilder;
 using DBDStatBot.Models;
 using Discord;
 using DBDStatBot.DateTime_Helper;
+using DBDStatBot.APICall.Filter;
 
 namespace DBDStatBot.Commands
 {
@@ -24,26 +25,24 @@ namespace DBDStatBot.Commands
             PullPlayerStats PullStats = new PullPlayerStats();
             SaveStatsToJson Save = new SaveStatsToJson();
             ReadStatsFiles ReadFiles = new ReadStatsFiles();
-            DaylightStatModel.Playerstats PlayerStats = null;
             DateTime Time = GetTime.CurrentTime();
-            PlayerStats = ReadFiles.ReadIndividualPlayerFile(steamId);
+            DaylightStatModel.Playerstats PlayerStats = ReadFiles.ReadIndividualPlayerFile(steamId);
             if (PlayerStats == null || Time.AddHours(-24) > PlayerStats.LastUpdated)
             {
                 PlayerStats = PullStats.PlayerStats(steamId);
             }
-            if (PlayerStats != null)
+            if (PlayerStats.SteamId != "1")
             {
                 //File Write
+                AccessDropbox LinkToStatsDownload = new AccessDropbox();
                 GetCheckDirectory.CheckDirectory();
                 Save.WriteToFile(PlayerStats);
-
-                AccessDropbox LinkToStatsDownload = new AccessDropbox();
                 var BuildOutput = EmbedOutput.BuildDBDStats(PlayerStats, LinkToStatsDownload.SCreateDBoxClient(PlayerStats).Result);
                 await Context.Channel.SendMessageAsync("", false, BuildOutput.Build());
             }
             else
             {
-                await Context.Channel.SendMessageAsync("", false, EmbedOutput.DBDAPIFailure(StaticDetails.ErrorCode).Build());
+                await Context.Channel.SendMessageAsync("", false, EmbedOutput.DBDAPIFailure(PlayerStats.SteamId).Build());
             }
         }
     }

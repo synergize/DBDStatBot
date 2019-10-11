@@ -13,30 +13,7 @@ namespace DBDStatBot.FileHelper
         /// Class file that reads the json file from disk. If the file isn't empty we return it's contents.
         /// Otherwise we return null.
         /// </summary>
-        /// <returns></returns>
-        
-        public List<DaylightStatModel.Playerstats> ReadMainFile()
-        {
-            List<DaylightStatModel.Playerstats> ListOfStatsFromFile = new List<DaylightStatModel.Playerstats>();
-            try
-            {
-                var file = File.ReadAllText(StaticDetails.BuildFilePath(StaticDetails.DataDirectoryPath, StaticDetails.DBDStatsFile));
-                if (file != "")
-                {
-                    JsonConvert.PopulateObject(file, ListOfStatsFromFile);
-                    return ListOfStatsFromFile;
-                }
-                else
-                {
-                    return null;
-                }
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
-                throw;
-            }
-        }
+        /// <returns></returns>      
         public DaylightStatModel.Playerstats ReadIndividualPlayerFile(string id)
         {
             DaylightStatModel.Playerstats obj = new DaylightStatModel.Playerstats();
@@ -46,6 +23,7 @@ namespace DBDStatBot.FileHelper
                 {
                     var SteamIDJson = File.Create(StaticDetails.BuildFilePath(StaticDetails.DataDirectoryPath, $"{id}.json"));
                     SteamIDJson.Close();
+                    return null; 
                 }
                 var file = File.ReadAllText(StaticDetails.BuildFilePath(StaticDetails.DataDirectoryPath, $"{id}.json"));
                 if (file != "")

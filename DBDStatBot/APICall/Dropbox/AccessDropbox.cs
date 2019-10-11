@@ -35,16 +35,16 @@ namespace DBDStatBot.APICall.Dropbox
                                 return current.Url;
                             }
                         }
+
                         var DownloadLink = dbox.Sharing.CreateSharedLinkWithSettingsAsync($"/{PlayerData.SteamId}.json");
                         DownloadLink.Wait();
                         return DownloadLink.Result.Url;
+
                         }
                     
                     catch (Exception msg)
                     {
-                        StaticDetails.ErrorCode = 2;
-                        Console.WriteLine(msg);
-                        throw;
+                        return "Failed to created link";
                     }
                 }
             }
