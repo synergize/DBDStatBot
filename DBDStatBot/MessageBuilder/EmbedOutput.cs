@@ -32,7 +32,7 @@ namespace DBDStatBot.MessageBuilder
             DBDStatsOutput.Timestamp = obj.LastUpdated;
             DBDStatsOutput.WithFooter("Contact Coaction#5994 for any issues. This is a work in progress.");
             DBDStatsOutput.WithDescription(
-                $"Download the rest of your stats [HERE]({url})! \n\n Hours Played: {SteamInfo.Game.playtime_forever.ToString() ?? "No Hours Found"} \n");
+                $"Download the rest of your stats [HERE]({url})! \n\n Hours Played: {(SteamInfo.Game.playtime_forever / 60).ToString() ?? "No Hours Found"} \n");
             DBDStatsOutput.WithColor(4124426);
             foreach (var x in obj.Stats)
             {
